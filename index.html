@@ -5,146 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AYOUB TRAVEL AGENT</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>.hidden { display: none; }</style>
 </head>
-<body class="bg-gray-100 font-sans" onload="checkSystemStatus(); updateAdminCounter();">
+<body class="bg-gray-50 font-sans">
 
-    <div class="max-w-md mx-auto min-h-screen bg-white shadow-2xl flex flex-col">
-        
-        <div id="lock-screen" class="hidden flex-grow flex flex-col items-center justify-center p-8 text-center bg-slate-900 text-white">
-            <div class="w-20 h-20 bg-red-500 rounded-full flex items-center justify-center mb-6 animate-pulse">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                </svg>
-            </div>
-            <h2 class="text-2xl font-black uppercase tracking-tighter">System Locked</h2>
-            <p class="text-gray-400 text-sm mt-2">Daily loan period expired. Please pay the 3.5% token to activate today's portal.</p>
-            <div class="mt-8 p-6 bg-white/10 rounded-3xl w-full border border-white/20">
-                <p class="text-xs uppercase text-green-400 font-bold">Total Token Due:</p>
-                <p id="token-value" class="text-4xl font-mono font-black mt-1">TZS 0</p>
-            </div>
-            <button onclick="unlockSystem()" class="mt-8 w-full bg-green-600 py-4 rounded-2xl font-bold uppercase shadow-lg active:scale-95">Confirm Payment & Unlock</button>
-        </div>
+    <div class="max-w-md mx-auto min-h-screen bg-white shadow-xl flex flex-col">
+        <header class="bg-[#0a4d2e] text-white p-8 text-center rounded-b-[2.5rem] shadow-md">
+            <h1 class="text-3xl font-black tracking-tighter uppercase">Ayoub Travel</h1>
+            <p class="text-[10px] uppercase tracking-[0.3em] opacity-80 mt-1">Agent Tanzania</p>
+        </header>
 
-        <div id="booking-section" class="flex flex-col flex-grow">
-            <header class="bg-[#0a4d2e] text-white p-8 text-center rounded-b-[2.5rem] shadow-md">
-                <h1 class="text-3xl font-black tracking-tighter uppercase">Ayoub Travel</h1>
-                <p class="text-[10px] uppercase tracking-[0.3em] opacity-80 mt-1">Agent Tanzania</p>
-            </header>
-
-            <div class="p-8 space-y-6 flex-grow">
+        <div class="p-8 space-y-6 flex-grow">
+            <div class="space-y-5">
                 <section>
                     <label class="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Passenger Name</label>
-                    <input type="text" id="name" class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none focus:border-green-600 uppercase">
+                    <input type="text" id="name" placeholder="FULL NAME" 
+                        class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none focus:border-green-600 uppercase">
                 </section>
+
                 <section>
                     <label class="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Route</label>
-                    <input type="text" id="route" placeholder="e.g. DAR-CHALINZE" class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none focus:border-green-600 uppercase">
+                    <input type="text" id="route" placeholder="e.g. DAR-CHALINZE" 
+                        class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none focus:border-green-600 uppercase">
                 </section>
-                <div class="grid grid-cols-2 gap-4">
-                    <section>
-                        <label class="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Date</label>
-                        <input type="date" id="date" class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none focus:border-green-600">
-                    </section>
-                    <section>
-                        <label class="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Base Fare</label>
-                        <input type="number" id="baseFare" oninput="calculateInclusive()" placeholder="50000" class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none focus:border-green-600">
-                    </section>
-                </div>
 
-                <div class="bg-blue-600 p-6 rounded-[2rem] text-white shadow-lg relative overflow-hidden">
-                    <div class="relative z-10">
-                        <p class="text-[10px] font-bold opacity-80 uppercase mb-1">Total Inclusive Fare</p>
-                        <p id="displayTotal" class="text-4xl font-black">TZS 0</p>
-                    </div>
-                    <div class="absolute right-[-10px] bottom-[-10px] opacity-10">
-                        <svg width="100" height="100" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
-                    </div>
-                </div>
-
-                <button onclick="sendWhatsApp()" class="w-full bg-[#25D366] text-white font-bold py-5 rounded-2xl shadow-xl active:scale-95 uppercase tracking-wide">
-                    Dispatch Ticket
-                </button>
+                <section>
+                    <label class="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Travel Date</label>
+                    <input type="date" id="date" class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none focus:border-green-600">
+                </section>
             </div>
 
-            <footer class="p-6 bg-gray-50 border-t border-gray-100">
-                <div class="flex justify-between items-center opacity-60">
-                    <div>
-                        <p class="text-[9px] uppercase font-bold tracking-widest text-gray-400">Daily Accumulation</p>
-                        <p id="admin-running-total" class="text-sm font-mono font-bold text-gray-700">GTV: TZS 0</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-[9px] uppercase font-bold tracking-widest text-blue-500">Token Status (3.5%)</p>
-                        <p id="admin-margin-counter" class="text-sm font-mono font-bold text-blue-600">Token: TZS 0</p>
-                    </div>
-                </div>
-            </footer>
+            <div class="bg-blue-600 p-6 rounded-[2rem] text-white shadow-lg">
+                <p class="text-[10px] font-bold opacity-80 uppercase mb-1">Payment Method</p>
+                <p class="text-xs">M-PESA LIPA NO:</p>
+                <p class="text-3xl font-mono font-black">5266238</p>
+                <p class="text-[10px] mt-2 opacity-70 italic uppercase">NB: Send screenshot to confirm payment</p>
+            </div>
+        </div>
+
+        <div class="p-8 pt-0">
+            <button onclick="sendWhatsApp()" 
+                class="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-5 rounded-2xl shadow-xl transition-all active:scale-95 flex items-center justify-center space-x-2 uppercase tracking-wide">
+                Book via WhatsApp
+            </button>
         </div>
     </div>
 
     <script>
-        const LOCK_TIME = 2; 
-        const MARGIN_RATE = 0.035;
-        let finalInclusiveFare = 0;
-
-        function calculateInclusive() {
-            const base = parseFloat(document.getElementById('baseFare').value || 0);
-            if (base > 0) {
-                finalInclusiveFare = Math.round(base * (1 + MARGIN_RATE));
-                document.getElementById('displayTotal').innerText = `TZS ${finalInclusiveFare.toLocaleString()}`;
-            } else {
-                finalInclusiveFare = 0;
-                document.getElementById('displayTotal').innerText = `TZS 0`;
-            }
-        }
-
-        function updateAdminCounter() {
-            const total = parseFloat(localStorage.getItem('running_total') || 0);
-            const margin = Math.round(total * MARGIN_RATE);
-            document.getElementById('admin-running-total').innerText = `GTV: TZS ${total.toLocaleString()}`;
-            document.getElementById('admin-margin-counter').innerText = `Token: TZS ${margin.toLocaleString()}`;
-        }
-
-        function checkSystemStatus() {
-            const now = new Date();
-            const lastUnlocked = localStorage.getItem('last_unlocked_date');
-            if (now.getHours() >= LOCK_TIME && lastUnlocked !== now.toDateString()) {
-                document.getElementById('booking-section').classList.add('hidden');
-                document.getElementById('lock-screen').classList.remove('hidden');
-                const total = parseFloat(localStorage.getItem('running_total') || 0);
-                document.getElementById('token-value').innerText = `TZS ${Math.round(total * MARGIN_RATE).toLocaleString()}`;
-            }
-        }
-
-        function unlockSystem() {
-            localStorage.setItem('last_unlocked_date', new Date().toDateString());
-            localStorage.setItem('running_total', '0');
-            location.reload();
-        }
-
         function sendWhatsApp() {
             const name = document.getElementById('name').value.trim().toUpperCase();
-            let route = document.getElementById('route').value.trim().toUpperCase();
+            let routeInput = document.getElementById('route').value.trim().toUpperCase();
             const dateInput = document.getElementById('date').value;
 
-            if(!name || !route || !dateInput || finalInclusiveFare <= 0) {
-                alert("Complete all fields.");
+            if(!name || !routeInput || !dateInput) {
+                alert("Please fill in all details.");
                 return;
             }
 
-            // Formatting
-            let cleanRoute = route.replace(/\s+/g, '-').replace(/-+/g, '-');
-            const [y, m, d] = dateInput.split('-');
-            const formattedDate = `${d}-${m}-${y}`;
+            // Logic to force "DAR-CHALINZE" format regardless of input
+            // 1. Remove all existing spaces
+            // 2. Ensure exactly one dash exists
+            let cleanRoute = routeInput.replace(/\s+/g, ''); // Removes all spaces
+            if (!cleanRoute.includes('-')) {
+                // If they forgot the dash, we'll try to find a natural break or just alert them
+                // but since you want it simple, we'll just ensure it joins correctly if they used a space
+                cleanRoute = routeInput.replace(/\s+/g, '-'); 
+            } else {
+                // If they included a dash and spaces, this fixes it to "FROM-TO"
+                let parts = cleanRoute.split('-');
+                cleanRoute = parts[0] + "-" + parts[1];
+            }
 
-            // Internal Accounting
-            let currentTotal = parseFloat(localStorage.getItem('running_total') || 0);
-            localStorage.setItem('running_total', currentTotal + finalInclusiveFare);
-            updateAdminCounter();
+            // Format Date to DD-MM-YYYY
+            let formattedDate = "DD-MM-YYYY";
+            if(dateInput) {
+                const [y, m, d] = dateInput.split('-');
+                formattedDate = `${d}-${m}-${y}`;
+            }
 
             const ayoubPhone = "255714080650";
-            const text = `*AYOUB TRAVEL REQUEST*\n*PASSENGER:* ${name}\n*ROUTE:* ${cleanRoute}\n*DATE:* ${formattedDate}\n\n*AYOUB REPLY:*\n*PASSENGER:* ${name}\n*BUS INFO:* [ ]\n*VEHICLE REG:* [ ]\n*ROUTE:* ${cleanRoute}\n*DATE:* ${formattedDate}\n*SEAT:* [ ]\n*FARE:* TZS ${finalInclusiveFare.toLocaleString()}\n*REPORT:* [05:00 HRS]\n*M-PESA LIPA NO: 5266238*\n*NB:* PLEASE SEND SCREENSHOT FOR PAYMENT CONFIRMATION.`;
-            
+
+            const text = `*AYOUB TRAVEL REQUEST*\n` +
+                         `*PASSENGER:* ${name}\n` +
+                         `*ROUTE:* ${cleanRoute}\n` +
+                         `*DATE:* ${formattedDate}\n\n` +
+                         `*AYOUB REPLY:*\n` +
+                         `*PASSENGER:* ${name}\n` +
+                         `*BUS INFO:* [ ]\n` +
+                         `*VEHICLE REG:* [ ]\n` +
+                         `*ROUTE:* ${cleanRoute}\n` +
+                         `*DATE:* ${formattedDate}\n` +
+                         `*SEAT:* [ ]\n` +
+                         `*FARE:* [TZS. ]\n` +
+                         `*REPORT:* [05:00 HRS]\n` +
+                         `*M-PESA LIPA NO:* 5266238\n` +
+                         `*NB:* PLEASE SEND SCREENSHOT FOR PAYMENT CONFIRMATION AFTER RECEIVING COMPLETE TRAVEL DETAILS.`;
+
             window.open(`https://wa.me/${ayoubPhone}?text=${encodeURIComponent(text)}`, '_blank');
         }
     </script>
