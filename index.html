@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AYOUB TRAVEL AGENT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="max-w-md mx-auto min-h-screen bg-white shadow-xl flex flex-col">
+        <header class="bg-green-800 text-white p-8 text-center rounded-b-[2.5rem] shadow-lg">
+            <h1 class="text-3xl font-black tracking-tight">AYOUB TRAVEL</h1>
+            <p class="text-xs uppercase tracking-[0.2em] opacity-80 mt-1">Agent Tanzania</p>
+        </header>
+
+        <div class="p-6 space-y-6 flex-grow">
+            <section>
+                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Passenger Details</label>
+                <input type="text" id="name" placeholder="Enter Full Name" 
+                    class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none focus:border-green-600 transition-all">
+            </section>
+
+            <section>
+                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Destination</label>
+                <select id="route" class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none appearance-none text-gray-700">
+                    <option value="" disabled selected>Select Region/Country</option>
+                    <option>Dar es Salaam - Mwanza</option>
+                    <option>Dar es Salaam - Arusha</option>
+                    <option>Dar es Salaam - Mbeya</option>
+                    <option>Dar es Salaam - Nairobi (KE)</option>
+                    <option>Dar es Salaam - Lusaka (ZM)</option>
+                    <option>Dar es Salaam - Dodoma</option>
+                    <option>Dar es Salaam - Bukoba</option>
+                </select>
+            </section>
+
+            <section>
+                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Travel Date</label>
+                <input type="date" id="date" class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none">
+            </section>
+
+            <div class="bg-blue-50 border-2 border-blue-100 p-5 rounded-3xl">
+                <div class="flex items-center space-x-2 mb-1">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                    <span class="text-[10px] font-black text-blue-600 uppercase">Payment Details</span>
+                </div>
+                <p class="text-2xl font-mono font-black text-blue-900 tracking-tighter">LIPA: 5266238</p>
+                <p class="text-[10px] text-blue-700 font-medium">AYOUB MWAKITEGA | +255714080650</p>
+            </div>
+        </div>
+
+        <div class="p-6 space-y-3 bg-white border-t border-gray-50">
+            <button onclick="sendRequest('whatsapp')" 
+                class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-5 rounded-2xl shadow-lg shadow-green-200 transition-all active:scale-95 flex items-center justify-center space-x-2">
+                <span>Send to WhatsApp</span>
+            </button>
+            <button onclick="sendRequest('sms')" 
+                class="w-full border-2 border-gray-200 text-gray-400 font-bold py-4 rounded-2xl active:bg-gray-100 transition-all">
+                Send via SMS
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const ayoubPhone = "255714080650";
+
+        function sendRequest(method) {
+            const name = document.getElementById('name').value;
+            const route = document.getElementById('route').value;
+            const date = document.getElementById('date').value;
+
+            if(!name || !route || !date) {
+                alert("Tafadhali jaza taarifa zote.");
+                return;
+            }
+
+            // Message designed for Ayoub to easily edit the response
+            const message = `*AYOUB TRAVEL REQUEST*%n` +
+                          `--------------------------%n` +
+                          `PASSENGER: ${name}%n` +
+                          `ROUTE: ${route}%n` +
+                          `DATE: ${date}%n` +
+                          `--------------------------%n` +
+                          `*AYOUB REPLY (Fill & Copy):*%n` +
+                          `SEAT: [ ]%n` +
+                          `FARE: [Tsh ]%n` +
+                          `REPORT: [05:00 AM]%n` +
+                          `LIPA NO: 5266238`;
+
+            if (method === 'whatsapp') {
+                window.open(`https://wa.me/${ayoubPhone}?text=${encodeURIComponent(message)}`, '_blank');
+            } else {
+                window.location.href = `sms:${ayoubPhone}?body=${encodeURIComponent(message)}`;
+            }
+        }
+    </script>
+</body>
+</html>
