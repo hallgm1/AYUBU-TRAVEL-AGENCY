@@ -62,15 +62,10 @@
             }
 
             // Logic to force "DAR-CHALINZE" format regardless of input
-            // 1. Remove all existing spaces
-            // 2. Ensure exactly one dash exists
-            let cleanRoute = routeInput.replace(/\s+/g, ''); // Removes all spaces
+            let cleanRoute = routeInput.replace(/\s+/g, ''); 
             if (!cleanRoute.includes('-')) {
-                // If they forgot the dash, we'll try to find a natural break or just alert them
-                // but since you want it simple, we'll just ensure it joins correctly if they used a space
                 cleanRoute = routeInput.replace(/\s+/g, '-'); 
             } else {
-                // If they included a dash and spaces, this fixes it to "FROM-TO"
                 let parts = cleanRoute.split('-');
                 cleanRoute = parts[0] + "-" + parts[1];
             }
@@ -96,7 +91,8 @@
                          `*DATE:* ${formattedDate}\n` +
                          `*SEAT:* [ ]\n` +
                          `*FARE:* [TZS. ]\n` +
-                         `*REPORT:* [05:00 HRS]\n` +
+                         `*REPORTING TIME:* [05:00 HRS]\n` +
+                         `*DEPARTURE TIME:* [06:00 HRS]\n` +
                          `*M-PESA LIPA NO:* 5266238\n` +
                          `*NB:* PLEASE SEND SCREENSHOT FOR PAYMENT CONFIRMATION AFTER RECEIVING COMPLETE TRAVEL DETAILS.`;
 
