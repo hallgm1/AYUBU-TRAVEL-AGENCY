@@ -9,7 +9,7 @@
 <body class="bg-gray-50 font-sans">
 
     <div class="max-w-md mx-auto min-h-screen bg-white shadow-xl flex flex-col">
-        <header class="bg-green-900 text-white p-8 text-center rounded-b-[2.5rem] shadow-md">
+        <header class="bg-[#0a4d2e] text-white p-8 text-center rounded-b-[2.5rem] shadow-md">
             <h1 class="text-3xl font-black tracking-tighter uppercase">Ayoub Travel</h1>
             <p class="text-[10px] uppercase tracking-[0.3em] opacity-80 mt-1">Agent Tanzania</p>
         </header>
@@ -23,10 +23,9 @@
                 </section>
 
                 <section>
-                    <label class="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Route (From - To)</label>
-                    <input type="text" id="route" placeholder="e.g. DAR - KIBAIGWA" 
+                    <label class="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Route</label>
+                    <input type="text" id="route" placeholder="Dar - Chalinze" 
                         class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none focus:border-green-600 uppercase">
-                    <p class="text-[9px] text-gray-400 mt-1 ml-1 font-medium italic">*Note: Must include a dash (-) between locations*</p>
                 </section>
 
                 <section>
@@ -39,35 +38,30 @@
                 <p class="text-[10px] font-bold opacity-80 uppercase mb-1">Payment Method</p>
                 <p class="text-xs">M-PESA LIPA NO:</p>
                 <p class="text-3xl font-mono font-black">5266238</p>
-                <p class="text-[10px] mt-2 opacity-70 italic">NB: SEND SCREENSHOT TO CONFIRM PAYMENT</p>
+                <p class="text-[10px] mt-2 opacity-70 italic uppercase">NB: Send screenshot to confirm payment</p>
             </div>
         </div>
 
         <div class="p-8 pt-0">
             <button onclick="sendWhatsApp()" 
                 class="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-5 rounded-2xl shadow-xl transition-all active:scale-95 flex items-center justify-center space-x-2">
-                <span class="text-lg">Send Booking to Ayoub</span>
+                <span class="text-lg font-black uppercase">Book via WhatsApp</span>
             </button>
         </div>
     </div>
 
     <script>
-        // Enforce the dash in the route field
-        document.getElementById('route').addEventListener('blur', function(e) {
-            let val = e.target.value.trim();
-            if (val && !val.includes('-')) {
-                alert("Please separate your locations with a dash (-). Example: DAR - DODOMA");
-            }
-        });
-
         function sendWhatsApp() {
             const name = document.getElementById('name').value.trim().toUpperCase();
-            const route = document.getElementById('route').value.trim().toUpperCase();
+            let route = document.getElementById('route').value.trim().toUpperCase();
             const dateInput = document.getElementById('date').value;
             
-            // Check for dash
-            if (!route.includes('-')) {
-                alert("Route must contain a dash (-) between locations.");
+            // Logic to ensure the dash is spaced correctly automatically
+            if (route.includes('-')) {
+                let parts = route.split('-');
+                route = parts[0].trim() + " - " + parts[1].trim();
+            } else {
+                alert("Please use a dash (-) to separate locations (e.g., Dar - Chalinze)");
                 return;
             }
 
