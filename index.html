@@ -10,7 +10,7 @@
 
     <div class="max-w-md mx-auto min-h-screen bg-white shadow-xl flex flex-col">
         <header class="bg-green-900 text-white p-8 text-center rounded-b-[2.5rem] shadow-md">
-            <h1 class="text-3xl font-black tracking-tighter">AYOUB TRAVEL</h1>
+            <h1 class="text-3xl font-black tracking-tighter uppercase">Ayoub Travel</h1>
             <p class="text-[10px] uppercase tracking-[0.3em] opacity-80 mt-1">Agent Tanzania</p>
         </header>
 
@@ -18,27 +18,28 @@
             <div class="space-y-5">
                 <section>
                     <label class="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Passenger Name</label>
-                    <input type="text" id="name" placeholder="Full Name" 
+                    <input type="text" id="name" placeholder="FULL NAME" 
                         class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none focus:border-green-600 uppercase">
                 </section>
 
                 <section>
-                    <label class="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Route</label>
+                    <label class="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Route (From - To)</label>
                     <input type="text" id="route" placeholder="e.g. DAR - KIBAIGWA" 
                         class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none focus:border-green-600 uppercase">
+                    <p class="text-[9px] text-gray-400 mt-1 ml-1 font-medium italic">*Note: Must include a dash (-) between locations*</p>
                 </section>
 
                 <section>
                     <label class="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Travel Date</label>
-                    <input type="date" id="date" class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none">
+                    <input type="date" id="date" class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none focus:border-green-600">
                 </section>
             </div>
 
-            <div class="bg-blue-600 p-6 rounded-[2rem] text-white shadow-lg relative overflow-hidden">
-                <p class="text-[10px] font-bold opacity-80 uppercase tracking-widest mb-1">Payment Method</p>
+            <div class="bg-blue-600 p-6 rounded-[2rem] text-white shadow-lg">
+                <p class="text-[10px] font-bold opacity-80 uppercase mb-1">Payment Method</p>
                 <p class="text-xs">M-PESA LIPA NO:</p>
                 <p class="text-3xl font-mono font-black">5266238</p>
-                <p class="text-[10px] mt-2 opacity-70 italic">NB: SEND PAYMENT SCREENSHOT TO CONFIRM</p>
+                <p class="text-[10px] mt-2 opacity-70 italic">NB: SEND SCREENSHOT TO CONFIRM PAYMENT</p>
             </div>
         </div>
 
@@ -51,11 +52,25 @@
     </div>
 
     <script>
+        // Enforce the dash in the route field
+        document.getElementById('route').addEventListener('blur', function(e) {
+            let val = e.target.value.trim();
+            if (val && !val.includes('-')) {
+                alert("Please separate your locations with a dash (-). Example: DAR - DODOMA");
+            }
+        });
+
         function sendWhatsApp() {
-            const name = document.getElementById('name').value.toUpperCase();
-            const route = document.getElementById('route').value.toUpperCase();
+            const name = document.getElementById('name').value.trim().toUpperCase();
+            const route = document.getElementById('route').value.trim().toUpperCase();
             const dateInput = document.getElementById('date').value;
             
+            // Check for dash
+            if (!route.includes('-')) {
+                alert("Route must contain a dash (-) between locations.");
+                return;
+            }
+
             // Format Date to DD-MM-YYYY
             let formattedDate = "DD-MM-YYYY";
             if(dateInput) {
@@ -70,7 +85,6 @@
 
             const ayoubPhone = "255714080650";
 
-            // Creating the text with actual line breaks for WhatsApp
             const text = `*AYOUB TRAVEL REQUEST*\n` +
                          `*PASSENGER:* ${name}\n` +
                          `*ROUTE:* ${route}\n` +
@@ -87,7 +101,6 @@
                          `*M-PESA LIPA NO:* 5266238\n` +
                          `*NB:* PLEASE SEND SCREENSHOT FOR PAYMENT CONFIRMATION AFTER RECEIVING COMPLETE TRAVEL DETAILS.`;
 
-            // Open WhatsApp with encoded URI
             window.open(`https://wa.me/${ayoubPhone}?text=${encodeURIComponent(text)}`, '_blank');
         }
     </script>
