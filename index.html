@@ -24,7 +24,7 @@
 
                 <section>
                     <label class="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Route</label>
-                    <input type="text" id="route" placeholder="Dar - Chalinze" 
+                    <input type="text" id="route" placeholder="e.g. DAR-CHALINZE" 
                         class="w-full mt-1 p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl outline-none focus:border-green-600 uppercase">
                 </section>
 
@@ -44,8 +44,8 @@
 
         <div class="p-8 pt-0">
             <button onclick="sendWhatsApp()" 
-                class="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-5 rounded-2xl shadow-xl transition-all active:scale-95 flex items-center justify-center space-x-2">
-                <span class="text-lg font-black uppercase">Book via WhatsApp</span>
+                class="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-5 rounded-2xl shadow-xl transition-all active:scale-95 flex items-center justify-center space-x-2 uppercase tracking-wide">
+                Book via WhatsApp
             </button>
         </div>
     </div>
@@ -53,16 +53,26 @@
     <script>
         function sendWhatsApp() {
             const name = document.getElementById('name').value.trim().toUpperCase();
-            let route = document.getElementById('route').value.trim().toUpperCase();
+            let routeInput = document.getElementById('route').value.trim().toUpperCase();
             const dateInput = document.getElementById('date').value;
-            
-            // Logic to ensure the dash is spaced correctly automatically
-            if (route.includes('-')) {
-                let parts = route.split('-');
-                route = parts[0].trim() + " - " + parts[1].trim();
-            } else {
-                alert("Please use a dash (-) to separate locations (e.g., Dar - Chalinze)");
+
+            if(!name || !routeInput || !dateInput) {
+                alert("Please fill in all details.");
                 return;
+            }
+
+            // Logic to force "DAR-CHALINZE" format regardless of input
+            // 1. Remove all existing spaces
+            // 2. Ensure exactly one dash exists
+            let cleanRoute = routeInput.replace(/\s+/g, ''); // Removes all spaces
+            if (!cleanRoute.includes('-')) {
+                // If they forgot the dash, we'll try to find a natural break or just alert them
+                // but since you want it simple, we'll just ensure it joins correctly if they used a space
+                cleanRoute = routeInput.replace(/\s+/g, '-'); 
+            } else {
+                // If they included a dash and spaces, this fixes it to "FROM-TO"
+                let parts = cleanRoute.split('-');
+                cleanRoute = parts[0] + "-" + parts[1];
             }
 
             // Format Date to DD-MM-YYYY
@@ -72,22 +82,17 @@
                 formattedDate = `${d}-${m}-${y}`;
             }
 
-            if(!name || !route || !dateInput) {
-                alert("Tafadhali jaza taarifa zote.");
-                return;
-            }
-
             const ayoubPhone = "255714080650";
 
             const text = `*AYOUB TRAVEL REQUEST*\n` +
                          `*PASSENGER:* ${name}\n` +
-                         `*ROUTE:* ${route}\n` +
+                         `*ROUTE:* ${cleanRoute}\n` +
                          `*DATE:* ${formattedDate}\n\n` +
                          `*AYOUB REPLY:*\n` +
                          `*PASSENGER:* ${name}\n` +
                          `*BUS INFO:* [ ]\n` +
                          `*VEHICLE REG:* [ ]\n` +
-                         `*ROUTE:* ${route}\n` +
+                         `*ROUTE:* ${cleanRoute}\n` +
                          `*DATE:* ${formattedDate}\n` +
                          `*SEAT:* [ ]\n` +
                          `*FARE:* [TZS. ]\n` +
